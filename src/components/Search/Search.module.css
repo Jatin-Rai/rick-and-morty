@@ -1,0 +1,29 @@
+.search {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .search input {
+    padding: 0.5rem;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    width: 70%;
+    max-width: 400px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .search input:focus {
+    outline: none;
+    border-color: turquoise;
+    box-shadow: 0 0 5px var(--dark-green);
+  }
+  
+  /* Responsive styles for smaller screens */
+  @media (max-width: 600px) {
+    .search input {
+      width: 100%; /* Full width for smaller screens */
+      max-width: none; /* Remove max-width for full width */
+    }
+  }
+  

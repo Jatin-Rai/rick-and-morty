@@ -1,0 +1,43 @@
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow items to wrap to the next line on smaller screens */
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    /* Center items horizontally on smaller screens */
+}
+
+.pagination button {
+    color: var(--white);
+    background-color: var(--dark);
+    padding: 0.5rem 1.5rem;
+    /* Adjusted padding for smaller screens */
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background-color: gray;
+}
+
+.pagination span {
+    font-size: 1.2rem;
+    color: var(--dark);
+}
+
+/* Media query for small screens (up to 600px) */
+@media (max-width: 600px) {
+    .pagination {
+        flex-direction: column;
+        /* Stack items vertically on smaller screens */
+        align-items: stretch;
+        /* Stretch items to full width on smaller screens */
+        text-align: center;
+        /* Center text on smaller screens */
+    }
+
+    /* .pagination button {
+        margin-bottom: 1rem; /* Add some bottom margin for better spacing on smaller screens */
+    /* } */
+}

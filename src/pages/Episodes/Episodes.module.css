@@ -1,0 +1,11 @@
+.episode {
+    text-align: center;
+}
+
+.episode p {
+    font-size: 1.2rem;
+}
+
+.filter {
+    margin-bottom: 2rem;
+}

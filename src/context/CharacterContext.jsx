@@ -51,10 +51,10 @@ const CharacterProvider = ({ children }) => {
   // Destructure the relevant values from the fetchedData state
   const { info, results } = fetchedData;
 
-    // Check if results (characters data) is available before rendering
-    if (!results || results.length === 0) {
-      return <p>Loading...</p>;
-    }
+  // Check if results (characters data) is available before rendering
+  if (!results || results.length === 0) {
+    return <p style={{ textAlign: "center" }}>Loading...</p>;
+  }
 
   // Create an object containing the state variables and functions to update them
   const contextValue = {

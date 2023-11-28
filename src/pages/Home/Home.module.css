@@ -25,15 +25,15 @@
 
 .image {
     max-width: 50%;
-    height: 40%;
+    /* height: 40%; */
 }
 
 .image img {
-    width: 100%; /* Make the image responsive */
-    height: 100%; /* Maintain aspect ratio */
-    margin-bottom: 1rem; /* Reduce bottom margin for spacing */
+    max-width: 100%; /* Make the image responsive */
+    height: auto; /* Maintain aspect ratio */
     object-fit: cover;
 }
+
 
 /* Media query for small screens (up to 600px) */
 @media (max-width: 767px) {

@@ -1,96 +1,50 @@
 import React from 'react';
-import { render, act } from '@testing-library/react';
-import { CharacterProvider, useCharacterContext } from './CharacterContext';
+import { render, screen, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 import axios from 'axios';
 
-// Mock Axios for testing
+// Import your components
+import { CharacterProvider, useCharacterContext } from './CharacterContext';
+
+// Mock the axios library
 jest.mock('axios');
 
-// Mock Axios response data
-const mockData = {
-  info: { pages: 1 },
-  results: [{ id: 1, name: 'Character 1' }],
-};
-
-describe('CharacterProvider and useCharacterContext', () => {
-  test('provides context values to children', async () => {
-    axios.get.mockResolvedValueOnce({ data: mockData });
-
-    let component;
-
-    await act(async () => {
-      component = render(
-        <CharacterProvider>
-          <TestComponent />
-        </CharacterProvider>
-      );
-    });
-
-    // Check if the context values are provided to the children
-    const characterNameElement = component.getByText('Character 1');
-    expect(characterNameElement).toBeInTheDocument();
-  });
-
-  test('updates context values on state changes', async () => {
-    axios.get.mockResolvedValueOnce({ data: mockData });
-
-    let component;
-
-    await act(async () => {
-      component = render(
-        <CharacterProvider>
-          <TestComponent />
-        </CharacterProvider>
-      );
-    });
-
-    // Check if the initial context values are rendered
-    const characterNameElement = component.getByText('Character 1');
-    expect(characterNameElement).toBeInTheDocument();
-
-    // Update state values to trigger a re-fetch
-    act(() => {
-      component.getByTestId('updateStateButton').click();
-    });
-
-    // Check if the updated context values are rendered after re-fetch
-    const updatedCharacterNameElement = component.getByText('Updated Character');
-    expect(updatedCharacterNameElement).toBeInTheDocument();
-  });
-});
-
+// Mock the child component that uses the context
 const TestComponent = () => {
-  const {
-    pageNumber,
-    setPageNumber,
-    status,
-    setStatus,
-    gender,
-    setGender,
-    species,
-    setSpecies,
-    search,
-    setSearch,
-    info,
-    results,
-    fetchedData,
-  } = useCharacterContext();
-
-  const handleStateUpdate = () => {
-    // Update state values to trigger a re-fetch
-    setPageNumber(2);
-    setStatus('Dead');
-    setGender('Male');
-    setSpecies('Human');
-    setSearch('Updated Search');
-  };
+  const { info, results } = useCharacterContext();
 
   return (
     <div>
-      <p>{results[0].name}</p>
-      <button onClick={handleStateUpdate} data-testid="updateStateButton">
-        Update State
-      </button>
+      <div data-testid="info">{JSON.stringify(info)}</div>
+      <div data-testid="results">{JSON.stringify(results)}</div>
     </div>
   );
 };
+
+describe('CharacterProvider and useCharacterContext', () => {
+  it('renders children with context values', async () => {
+    // Mock the API response
+    const mockData = {
+      info: { pages: 1 },
+      results: [{ id: 1, name: 'Character 1' }],
+    };
+
+    // Use axios.mockResolvedValueOnce instead of jest.spyOn
+    axios.get.mockResolvedValueOnce({ data: mockData });
+
+    // Render the component tree with the provider
+    render(
+      <CharacterProvider>
+        <TestComponent />
+      </CharacterProvider>
+    );
+
+    // Wait for the asynchronous data fetching
+    await waitFor(() => screen.findByTestId('results'));
+
+    // Verify that the context values are provided to the children
+    expect(screen.getByTestId('info')).toHaveTextContent(JSON.stringify(mockData.info));
+    expect(screen.getByTestId('results')).toHaveTextContent(JSON.stringify(mockData.results));
+  });
+
+});

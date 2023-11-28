@@ -1,3 +1,4 @@
+/* Main button styles */
 .btn {
     padding: .5rem 2rem .5rem 2rem;
     color: var(--white);
@@ -7,6 +8,7 @@
     font-size: 1.2rem;
 }
 
+/* Style for the hover effect */
 .btn:hover {
     box-shadow: 0 0 20px 5px var(--secondary);
     color: var(--secondary);

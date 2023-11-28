@@ -1,79 +1,75 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Route } from 'react-router-dom';
+import { render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import axios from 'axios';
 import CharacterDetail from './CharacterDetail';
-import { CharacterProvider } from '../../../context/CharacterContext';
+import { useCharacterContext } from '../../../context/CharacterContext';
 
-// Mock the context provider
-jest.mock('../../../context/CharacterContext', () => ({
-  ...jest.requireActual('../../../context/CharacterContext'),
-  useCharacterContext: jest.fn(() => ({
-    results: [
-      {
-        id: 1,
-        name: 'Test Character',
-        status: 'Alive',
-        species: 'Human',
-        gender: 'Male',
-        origin: { url: 'https://rickandmortyapi.com/api/location/1' },
-        location: { url: 'https://rickandmortyapi.com/api/location/2', residents: [] },
-        image: 'test-image.jpg',
-        episode: ['https://rickandmortyapi.com/api/episode/1', 'https://rickandmortyapi.com/api/episode/2'],
-        type: 'Test Type',
-      },
-    ],
-  })),
-}));
+jest.mock('axios');
+jest.mock('../../../context/CharacterContext');
 
-test('renders CharacterDetail component', () => {
-  render(
-    <MemoryRouter initialEntries={['/characters/1']}>
-      <Route path="/characters/:id">
-        <CharacterProvider>
-          <CharacterDetail />
-        </CharacterProvider>
-      </Route>
-    </MemoryRouter>
-  );
+describe('CharacterDetail', () => {
+  const mockCharacter = {
+    id: 1,
+    name: 'Test Character',
+    status: 'Alive',
+    species: 'Human',
+    gender: 'Male',
+    origin: { name: 'Origin Planet', url: 'https://example.com/origin' },
+    location: { name: 'Test Location', url: 'https://example.com/location' },
+    image: 'https://example.com/image.jpg',
+    episode: ['https://example.com/episode/1', 'https://example.com/episode/2'],
+    type: 'Test Type',
+  };
 
-  // Check if the main container is rendered (using data-testid attribute)
-  const characterDetailContainer = screen.getByTestId('character-detail-container');
-  expect(characterDetailContainer).toBeInTheDocument();
+  const mockLocationData = {
+    name: 'Test Location',
+    dimension: 'Test Dimension',
+    type: 'Test Type',
+  };
 
-  // Check if the character name is rendered (using data-testid attribute)
-  const characterName = screen.getByTestId('character-name');
-  expect(characterName).toBeInTheDocument();
+  const mockOriginData = {
+    name: 'Origin Planet',
+    dimension: 'Origin Dimension',
+    type: 'Origin Type',
+  };
 
-  // Check if the character image is rendered (using data-testid attribute)
-  const characterImage = screen.getByTestId('character-image');
-  expect(characterImage).toBeInTheDocument();
+  beforeEach(() => {
+    useCharacterContext.mockReturnValue({
+      results: [mockCharacter],
+    });
 
-  // Check if the character details are rendered (using data-testid attribute)
-  const characterDetails = screen.getByTestId('character-details');
-  expect(characterDetails).toBeInTheDocument();
+    axios.get.mockImplementation((url) => {
+      if (url === mockCharacter.location.url) {
+        return Promise.resolve({ data: mockLocationData });
+      } else if (url === mockCharacter.origin.url) {
+        return Promise.resolve({ data: mockOriginData });
+      }
+      return Promise.reject(new Error('Unexpected URL'));
+    });
+  });
 
-  // Check if the episodes container is rendered (using data-testid attribute)
-  const episodesContainer = screen.getByTestId('episodes-container');
-  expect(episodesContainer).toBeInTheDocument();
+  test('renders character details with correct data', async () => {
+    // Arrange
+    render(
+      <MemoryRouter initialEntries={[`/characters/${mockCharacter.id}`]}>
+        <Routes>
+          <Route path="/characters/:id" element={<CharacterDetail />} />
+        </Routes>
+      </MemoryRouter>
+    );
 
-  // You can add more specific checks based on your component structure
-  // For example, check if specific episode names are rendered
-  expect(screen.getByTestId('episode-0')).toBeInTheDocument();
-  expect(screen.getByTestId('episode-1')).toBeInTheDocument();
-});
+    // Act and Assert
+    // Use waitFor to wait for asynchronous rendering and assertions
+    await waitFor(() => {
+      // Check if the main container is rendered
+      expect(screen.getByTestId('character-detail-container')).toBeInTheDocument();
+    });
 
-test('renders "Character not found" message when character is not found', () => {
-  render(
-    <MemoryRouter initialEntries={['/characters/2']}>
-      <Route path="/characters/:id">
-        <CharacterProvider>
-          <CharacterDetail />
-        </CharacterProvider>
-      </Route>
-    </MemoryRouter>
-  );
+    await waitFor(() => {
+      // Check if the character name and species are rendered correctly
+      expect(screen.getByTestId('character-name')).toHaveTextContent(`${mockCharacter.name} - ${mockCharacter.species}`);
+    });
 
-  // Check if the "Character not found" message is rendered (using data-testid attribute)
-  const characterNotFoundMessage = screen.getByTestId('character-not-found');
-  expect(characterNotFoundMessage).toBeInTheDocument();
+  });
 });

@@ -1,5 +1,4 @@
-/* Card.module.css */
-
+/* Main style for the card container */
 .card {
   position: relative;
   border: 1px solid var(--dark-green);
@@ -8,11 +7,13 @@
   transition: box-shadow 0.3s ease;
 }
 
+/* Style for the hover effect on the card */
 .card:hover {
   box-shadow: 5px 5px 15px 0 var(--secondary);
   cursor: pointer;
 }
 
+/* Style for the character image */
 .card img {
   width: 100%;
   height: 100%;
@@ -20,19 +21,24 @@
   border-radius: 10px;
 }
 
+/* Style for the Link */
 .card a {
   text-decoration: none;
 }
 
+/* Style for the Status badge */
 .card .badge {
   position: absolute;
-  top: 0.5rem; /* Adjust top position based on your design */
-  right: 0.5rem; /* Adjust right position based on your design */
+  top: 0.5rem; 
+  /* Adjust top position based on your design */
+  right: 0.5rem; 
+  /* Adjust right position based on your design */
   color: var(--white);
   padding: 0.5rem;
   border-radius: 10px;
 }
 
+/* Style for the description */
 .description {
   display: flex;
   flex-direction: column;
@@ -50,7 +56,7 @@
   flex-direction: column;
 }
 
-/* Media query for small screens (up to 600px) */
+/* Responsive Style */
 @media (max-width: 767px) {
   .card {
     margin-bottom: 2rem;

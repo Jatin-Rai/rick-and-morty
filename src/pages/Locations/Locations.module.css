@@ -1,43 +1,47 @@
 /* Base styles for desktop */
-.location {
-    text-align: center;
+.container {
+  text-align: center;
+}
+
+.container p {
+  font-size: 1.3rem;
+}
+
+.description {
+  display: inline-flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.filter {
+  margin-bottom: 2rem;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    /* Add padding for better spacing on smaller screens */
   }
-  
-  .location p {
-    font-size: 1.3rem;
+
+  .container h1 {
+    font-size: 1.5rem;
+    /* Increase heading font size */
   }
-  
+
+  .container p {
+    font-size: 1rem;
+    /* Adjust paragraph font size */
+  }
+
   .description {
-    display: inline-flex;
-    gap: 2rem;
-    margin-bottom: 1rem;
+    flex-direction: column;
+    /* Stack elements vertically */
+    gap: 1rem;
   }
-  
+
   .filter {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    /* Decrease margin for better spacing */
   }
-  
-  /* Responsive styles for smaller screens */
-  @media (max-width: 768px) {
-    .location {
-      padding: 1rem; /* Add padding for better spacing on smaller screens */
-    }
-  
-    .location h1 {
-      font-size: 1.5rem; /* Increase heading font size */
-    }
-  
-    .location p {
-      font-size: 1rem; /* Adjust paragraph font size */
-    }
-  
-    .description {
-      flex-direction: column; /* Stack elements vertically */
-      gap: 1rem;
-    }
-  
-    .filter {
-      margin-bottom: 1rem; /* Decrease margin for better spacing */
-    }
-  }
-  
+}

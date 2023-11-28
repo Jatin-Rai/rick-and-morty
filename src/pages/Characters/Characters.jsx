@@ -26,25 +26,25 @@ const Characters = () => {
   const statusMenu = ["Alive", "Dead", "Unknown"];
 
   return (
-    <div className={style.characters} data-testid="characters-component">
+    <div className={style.container} data-testid="characters-container">
       {/* Search component for character search */}
-      <Search setSearch={setSearch} setPageNumber={setPageNumber} data-testid="search-component" />
+      <Search setSearch={setSearch} setPageNumber={setPageNumber} />
 
       <div className={style.filters}>
         {/* Filter component for gender */}
-        <Filter value={gender} onChange={(e) => setGender(e.target.value)} data={genders} placeholder="Gender" data-testid="gender-filter" />
+        <Filter value={gender} onChange={(e) => setGender(e.target.value)} data={genders} placeholder="Gender" testid={"gender-filter" } />
 
         {/* Filter component for species */}
-        <Filter value={species} onChange={(e) => setSpecies(e.target.value)} data={speciesMenu} placeholder="Species" data-testid="species-filter" />
+        <Filter value={species} onChange={(e) => setSpecies(e.target.value)} data={speciesMenu} placeholder="Species" testid={"species-filter" } />
 
         {/* Filter component for status */}
-        <Filter value={status} onChange={(e) => setStatus(e.target.value)} data={statusMenu} placeholder="Status" data-testid="status-filter" />
+        <Filter value={status} onChange={(e) => setStatus(e.target.value)} data={statusMenu} placeholder="Status" testid={"status-filter" } />
       </div>
 
       <h1>
         Characters
         {/* Pagination component for navigating through pages */}
-        <Pagination data-testid="pagination-component" />
+        <Pagination />
       </h1>
 
       <div className="cardLayout">

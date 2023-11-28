@@ -1,51 +1,58 @@
-.header {
+/* Main style container */
+.container {
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center; /* Center text on small screens */
+    text-align: center;
+    /* Center text on small screens */
 }
 
-.header h1 {
+.container h1 {
     font-size: 3rem;
     color: var(--dark);
-    margin-bottom: 1rem; /* Reduce bottom margin for spacing */
+    margin-bottom: 1rem;
+    /* Reduce bottom margin for spacing */
 }
 
-.header h3 {
+.container h3 {
     font-size: 2rem;
     color: var(--dark-green);
-    margin-bottom: 1rem; /* Reduce bottom margin for spacing */
+    margin-bottom: 1rem;
+    /* Reduce bottom margin for spacing */
 }
 
-.header h4 {
+.container h4 {
     font-size: 1.5rem;
     color: var(--secondary);
 }
 
+/* Style for image container */
 .image {
     max-width: 50%;
-    /* height: 40%; */
 }
 
+/* Style for the image */
 .image img {
-    max-width: 100%; /* Make the image responsive */
-    height: auto; /* Maintain aspect ratio */
+    max-width: 100%;
+    /* Make the image responsive */
+    height: auto;
+    /* Maintain aspect ratio */
     object-fit: cover;
 }
 
 
-/* Media query for small screens (up to 600px) */
+/* Responsive Styles */
 @media (max-width: 767px) {
-    .header h1 {
+    .container h1 {
         font-size: 2.5rem;
     }
 
-    .header h3 {
+    .container h3 {
         font-size: 1.5rem;
     }
 
-    .header h4 {
+    .container h4 {
         font-size: 1rem;
     }
 }

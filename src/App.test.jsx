@@ -1,45 +1,29 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 
-test('renders App component', () => {
-  render(<App />);
-  const appElement = screen.getByTestId('app-component');
-  expect(appElement).toBeInTheDocument();
-});
+test('renders App component with Navbar and Routes', () => {
+  render(
+    <Router>
+      <App />
+    </Router>
+  );
 
-test('renders Navbar component', () => {
-  render(<App />);
+  // Check if Navbar is rendered
   const navbarElement = screen.getByTestId('navbar-component');
   expect(navbarElement).toBeInTheDocument();
-});
 
-test('renders Home component for the "/" route', () => {
-  render(<App />);
-  const homeElement = screen.getByTestId('home-component');
+  // Check if Routes and corresponding components are rendered
+  const homeElement = screen.getByText(/home/i);
   expect(homeElement).toBeInTheDocument();
-});
 
-test('renders Characters component for the "/characters" route', () => {
-  render(<App />);
-  const charactersElement = screen.getByTestId('characters-component');
+  const charactersElement = screen.getByText(/characters/i);
   expect(charactersElement).toBeInTheDocument();
-});
 
-test('renders CharacterDetail component for the "/characters/:id" route', () => {
-  render(<App />);
-  const characterDetailElement = screen.getByTestId('character-detail-component');
-  expect(characterDetailElement).toBeInTheDocument();
-});
-
-test('renders Episodes component for the "/episodes" route', () => {
-  render(<App />);
-  const episodesElement = screen.getByTestId('episodes-component');
+  const episodesElement = screen.getByText(/episodes/i);
   expect(episodesElement).toBeInTheDocument();
-});
 
-test('renders Locations component for the "/locations" route', () => {
-  render(<App />);
-  const locationsElement = screen.getByTestId('locations-component');
+  const locationsElement = screen.getByText(/locations/i);
   expect(locationsElement).toBeInTheDocument();
 });

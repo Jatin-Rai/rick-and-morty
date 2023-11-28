@@ -9,14 +9,14 @@ import style from './Search.module.css';
  */
 const Search = ({ setSearch, setPageNumber }) => {
   return (
-    <form className={style.search}>
+    <form className={style.container} data-testid="search-component">
       <input
         type="text"
         placeholder="Search for characters"
         onChange={(e) => {
           // Set page number to 1 if setPageNumber is provided
           setPageNumber && setPageNumber(1);
-          
+
           // Set search query using setSearch if provided
           setSearch && setSearch(e.target.value);
         }}

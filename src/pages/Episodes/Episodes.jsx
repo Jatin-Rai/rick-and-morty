@@ -17,7 +17,7 @@ const Episodes = () => {
   const { air_date, name, episode } = info;
 
   return (
-    <div className={style.episode}>
+    <div className={style.container} data-testid="episode-container">
       {/* Display episode name and number */}
       <h1>
         Episode Name: <span>{name === "" ? "Unknown" : name}({episode})</span>
@@ -37,6 +37,7 @@ const Episodes = () => {
           className="form-select"
           onChange={(e) => setId(e.target.value)}
           value={id}
+          data-testid="filter-dropdown"
         >
           {Array.from({ length: 51 }, (_, index) => (
             <option key={index + 1} value={index + 1}>
@@ -49,7 +50,7 @@ const Episodes = () => {
       <div className="cardLayout">
         {/* Map through charactersData and display Card component for each character */}
         {charactersData.map((character) => (
-          <div key={character.id}>
+          <div key={character.id} data-testid="card-component">
             <Card character={character} />
           </div>
         ))}

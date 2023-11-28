@@ -35,7 +35,7 @@ const CharacterProvider = ({ children }) => {
         }
       } catch (error) {
         // Handle errors that may occur during the data fetching process
-        console.error('Error fetching data:', error);
+        throw new Error('Error fetching data:', error);
       }
     };
 

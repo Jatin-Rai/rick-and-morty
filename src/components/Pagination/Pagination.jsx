@@ -20,7 +20,7 @@ const Pagination = () => {
     };
 
     return (
-        <div className={style.pagination}>
+        <div className={style.container} data-testid="pagination-component">
             {/* Button to navigate to the previous page */}
             <button onClick={() => handlePageChange(pageNumber - 1)} disabled={pageNumber === 1}>
                 Previous

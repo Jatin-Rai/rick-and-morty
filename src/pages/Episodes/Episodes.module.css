@@ -1,11 +1,19 @@
-.episode {
+/* Main style container */
+.container {
     text-align: center;
 }
 
-.episode p {
+/* Style for the p tags */
+.container p {
     font-size: 1.2rem;
 }
 
+/* Style for the input element */
+.container input {
+    margin-right: .5rem;
+}
+
+/* Style for the dropdown filter */
 .filter {
     margin-bottom: 2rem;
 }

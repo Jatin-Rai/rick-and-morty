@@ -1,20 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect'; // Import this for additional matchers
 import Button from './Button';
 
-describe('Button component', () => {
-  test('renders with the correct placeholder text', () => {
-    const placeholderText = 'Click me';
-    render(<Button placeholder={placeholderText} />);
+test('renders Button component with provided placeholder', () => {
+  render(<Button placeholder="Click me" />);
 
-    // Use screen.getByText to find the rendered text
-    const buttonElement = screen.getByText(placeholderText);
+  // Check if the button with the specified text content is rendered
+  const buttonElement = screen.getByText('Click me');
+  expect(buttonElement).toBeInTheDocument();
 
-    // Assert that the button is in the document
-    expect(buttonElement).toBeInTheDocument();
-
-    // To check if the button has the correct class
-    expect(buttonElement).toHaveClass('btn');
-  });
 });

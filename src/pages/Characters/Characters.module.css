@@ -1,17 +1,19 @@
-.characters h1 {
+/* Main style container */
+.container h1 {
     display: flex;
     flex-wrap: wrap;
-    /* Allow items to wrap to the next line on smaller screens */
     justify-content: space-between;
 }
 
+/* Style for the filters */
 .filters {
     display: flex;
     justify-content: center;
     gap: 1rem;
 }
 
-.characters a {
+/* Style for the Link */
+.container a {
     text-decoration: none;
     margin: 0;
 }

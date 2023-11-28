@@ -9,7 +9,7 @@ import Button from '../Button/Button';
  */
 const Navbar = () => {
     return (
-        <nav className={style.nav}>
+        <nav className={style.nav} data-testid="navbar-component">
             <Link to="/">
                 <Button placeholder="Home" />
             </Link>

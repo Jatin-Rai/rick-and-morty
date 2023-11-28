@@ -15,7 +15,7 @@ const Locations = () => {
   const { dimension, name, type } = info;
 
   return (
-    <div className={style.location} data-testid="locations-component">
+    <div className={style.container} data-testid="locations-component">
       {/* Location name heading */}
       <h1>
         Location: <span data-testid="location-name">{name === "" ? "Unknown" : name}</span>
@@ -34,7 +34,7 @@ const Locations = () => {
       </div>
 
       {/* Search component */}
-      <Search setSearch={setSearch} data-testid="search-component" />
+      <Search setSearch={setSearch} />
 
       <div className={style.filter}>
         {/* Dropdown for selecting location ID */}
@@ -55,7 +55,7 @@ const Locations = () => {
       <div className="cardLayout" data-testid="characters-card-layout">
         {/* Display cards for characters in the location */}
         {charactersData.map((character) => (
-          <div key={character.id}>
+          <div key={character.id} data-testid="characters-card">
             <Card character={character} />
           </div>
         ))}
